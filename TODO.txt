@@ -1,0 +1,27 @@
+
+RADYO PI TODO LIST:
+============================
+
+- Start and end markers on the dial
+- Dim the backlight - too bright  *  this seems to be more difficukt than expected
+- Connect the potentiometer
+- Connect the encoder
+- Experiment with look and feel,  play with the font, glass front needed?
+- Write code to read encoder left turn or right turn
+- Write code to read volume
+- Write code to read on off
+- Write code to show clock when off - what other info? temperature?
+- Make the sound card work,
+- Do I  need an amp to connect a speaker?
+- Design box ideas with measurement, sockets exposed
+- Build a cardbox housing
+
+
+
+
+DONE
+==============================
+
+- station location be based on the location of the last baloon, not station name
+- select /dev/fb1 based on existence
+- Get rid of mouse pointer
