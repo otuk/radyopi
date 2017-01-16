@@ -112,7 +112,7 @@ class Settings:
                 "image":"yellowbg2.jpg",                
             },
             {
-                "name":"lvl_1",
+                "name":"radyoon",
                 "image":"radyoon.jpg",
             },
             {

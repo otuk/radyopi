@@ -22,9 +22,10 @@ def evh(control):
                     
 def upd(control):
     if control.wifis.check_internet_access() :
-        control.gs.set_level_off()        
-    control.gs.set_level_off()        # TEST only remove this line
-
+        control.gs.set_level_off()
+        print ( "wifi ON,  moving to next level")
+    else:
+        print ( "wifi no good will try more")
     
 def drw(control, screen):
     control.bdg.draw(screen)
@@ -35,3 +36,4 @@ def drw(control, screen):
     
 def pst(control):
     control.gs.curr_state += 1
+    print ( "-- radyostart POST executed gs state is ", control.gs.curr_state )

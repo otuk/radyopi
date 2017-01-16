@@ -33,9 +33,6 @@ class Controller:
         self.wifis = wifistatus.Wifistatus(config, self.gs)
         self.wfg = pygame.sprite.Group()
         self.wfg.add(self.wifis)
-        self.dial = dial.Dial(config, self.gs)
-        self.dg = pygame.sprite.Group()
-        self.dg.add(self.dial)
         self.glass = glasspanel.Glasspanel(config, self.gs)
         self.gg = pygame.sprite.Group()
         self.gg.add(self.glass)
@@ -47,6 +44,9 @@ class Controller:
         self.stag = pygame.sprite.Group()
         for sta in self.staman.stas:
             self.stag.add(sta)
+        self.dial = dial.Dial(config, self.gs)
+        self.dg = pygame.sprite.Group()
+        self.dg.add(self.dial)
         
         
         

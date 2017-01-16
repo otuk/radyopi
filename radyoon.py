@@ -3,7 +3,8 @@ import pygame
 
 def pre(control):
     control.gs.set_level_on()
-    control.volman.set_volume(50)
+    control.volman.set_volume(75)
+    #print("radyo on PRE finished")
         
         
 def evh(control):
@@ -32,23 +33,29 @@ def evh(control):
                 pass
             elif event.key == pygame.K_RIGHT:
                 pass
+    d = control.dial.consume_queue()
+    if d :
+        control.staman.add_delta(d*-8)
+        control.dial.add_delta(d*3)                        
 
+            
                 
 def upd(control):
     control.vg.update()
     control.ig.update()    
     control.stag.update()    
     control.dg.update()
-    
 
         
         
 def drw(control, screen):
+    #print("radyo on drawing")
     control.bdg.draw(screen)
     control.stag.draw(screen)
     control.ig.draw(screen)
     control.dg.draw(screen)
     control.gg.draw(screen)
+    #print("radyo on drew")
 
 
 
