@@ -31,7 +31,9 @@ class Wifistatus(pygame.sprite.Sprite):
                                             (self.config.wifistatus["width"],
                                              self.config.wifistatus["height"]))
         
-        
+
+    #TODO do we check this while radio on, if so
+    # what do we do when it fails?
     def check_internet_access(self, host="8.8.8.8", port=53, timeout=3):
         """
         Host: 8.8.8.8 (google-public-dns-a.google.com)

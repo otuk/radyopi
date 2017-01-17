@@ -1,12 +1,31 @@
+# -*- coding: utf-8 -*-
+
 import pygame
 
 
+import volumemanager
+import stationmanager
+import dial
+
+
+
 def pre(control):
+    control.volman = volumemanager.VolumeManager(control.config)
+    control.vg = pygame.sprite.Group()
+    control.vg.add(control.volman)
+    control.ig = pygame.sprite.Group()
+    control.staman = stationmanager.StationManager(control.config, control.ig)
+    control.stag = pygame.sprite.Group()
+    for sta in control.staman.stas:
+        control.stag.add(sta)
+    control.dial = dial.Dial(control.config, control.gs)
+    control.dg = pygame.sprite.Group()
+    control.dg.add(control.dial)
     control.gs.set_level_on()
-    control.volman.set_volume(75)
-    #print("radyo on PRE finished")
+    
         
-        
+
+    
 def evh(control):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -20,24 +39,21 @@ def evh(control):
                 control.staman.add_delta(-5)
                 control.dial.add_delta(3)                
             if event.key == pygame.K_DOWN:
-                control.volman.lower_volume(5)
+                control.volman.lower_volume(control.volman.increment)
             elif event.key == pygame.K_UP:
-                control.volman.increase_volume(5)
+                control.volman.increase_volume(control.volman.increment)
             if event.key == pygame.K_q:
-                control.volman.mute()
-                control.volman.clear()
                 control.gs.set_level_off()
                 control.gs.set_game_off()
-        elif event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT:
-                pass
-            elif event.key == pygame.K_RIGHT:
-                pass
-    d = control.dial.consume_queue()
-    if d :
-        control.staman.add_delta(d*-8)
-        control.dial.add_delta(d*3)                        
+    # TODO the following polling can be made into a pygame user event
+    # and can be part of event loop
+    if control.dial.with_encoder:
+        d = control.dial.consume_queue()
+        if d != 0 :
+            control.staman.add_delta(d*-8)
+            control.dial.add_delta(d*3)                        
 
+        
             
                 
 def upd(control):
@@ -49,17 +65,18 @@ def upd(control):
         
         
 def drw(control, screen):
-    #print("radyo on drawing")
     control.bdg.draw(screen)
     control.stag.draw(screen)
     control.ig.draw(screen)
     control.dg.draw(screen)
     control.gg.draw(screen)
-    #print("radyo on drew")
 
 
 
 def pst(control):
-    pass
-
-
+    # do some clean up
+    # TODO  what else?
+    control.dial.destroy()
+    #turn off mpc
+    control.volman.mute()    
+    control.volman.kill_mpc()

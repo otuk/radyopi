@@ -7,11 +7,7 @@ import radyoend
 import radyoon
 import background
 import wifistatus
-import dial
 import glasspanel
-import station
-import stationmanager
-import volumemanager
 
 
 
@@ -25,37 +21,26 @@ class Controller:
 
     
     def __init__(self, config):
+        # all the settings are here
         self.config = config
+        # current state is in gs(gamestate) object
         self.gs = stats.Stats(config)
+        # background for the station dial
         self.backdial = background.Background(config, self.gs)
         self.bdg = pygame.sprite.Group()
         self.bdg.add(self.backdial)
+        # wifi checker
         self.wifis = wifistatus.Wifistatus(config, self.gs)
         self.wfg = pygame.sprite.Group()
         self.wfg.add(self.wifis)
+        # transparent glass over the dial
         self.glass = glasspanel.Glasspanel(config, self.gs)
         self.gg = pygame.sprite.Group()
         self.gg.add(self.glass)
-        self.volman = volumemanager.VolumeManager(config)
-        self.vg = pygame.sprite.Group()
-        self.vg.add(self.volman)
-        self.ig = pygame.sprite.Group()
-        self.staman = stationmanager.StationManager(config, self.ig)
-        self.stag = pygame.sprite.Group()
-        for sta in self.staman.stas:
-            self.stag.add(sta)
-        self.dial = dial.Dial(config, self.gs)
-        self.dg = pygame.sprite.Group()
-        self.dg.add(self.dial)
+        # additionally each level creates their own needed elements
+        # and populate the controller
         
         
-        
-    def set_icontitle(self):
-        # in full screen mode this needs to go away
-        icon = pygame.image.load(self.config.icon)
-        pygame.display.set_icon(icon)
-        pygame.display.set_caption(self.config.title)
-        return icon
     
     def screen_ready(self, screen):
         self.screen = screen

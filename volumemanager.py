@@ -10,7 +10,10 @@ class VolumeManager(pygame.sprite.Sprite):
     def __init__(self, config):
         super().__init__()
         self.config = config
-        self._vol = 50
+        self._vol = config.volume["ini_vol"]
+        self.min = config.volume["min_vol"]
+        self.max = config.volume["max_vol"]
+        self.increment = config.volume["increment"]        
         self.vol = 0
         self.premutevol = self._vol
         self._clear = False
@@ -20,10 +23,10 @@ class VolumeManager(pygame.sprite.Sprite):
 
         
     def set_volume(self, v):
-        if v > 100:
-            self._vol = 100
-        elif self._vol < 0:
-            self._vol = 0
+        if v > self.max:
+            self._vol = self.max
+        elif self._vol < self.min:
+            self._vol = self.min
         else :
             self._vol = v
 
@@ -31,15 +34,15 @@ class VolumeManager(pygame.sprite.Sprite):
             
     def increase_volume(self, v):
         self._vol += v
-        if self._vol > 100:
-            self._vol = 100
+        if self._vol > self.max:
+            self._vol = self.max
 
             
 
     def lower_volume(self, v):
         self._vol -= v
-        if self._vol < 0:
-            self._vol = 0
+        if self._vol < self.min:
+            self._vol = self.min
 
             
 
@@ -59,11 +62,16 @@ class VolumeManager(pygame.sprite.Sprite):
 
         
 
+    def kill_mpc(self): 
+        subprocess.call("mpc stop ", shell=True)
+        subprocess.call("mpc clear ", shell=True)
+        subprocess.call("mpc rm  "
+                        + self.config.sta_manager["playlist_name"], shell=True)           
+        
+
     def update(self):
         if self._clear:
-            subprocess.call("mpc clear ", shell=True)
-            subprocess.call("mpc rm  "
-                            + self.config.sta_manager["playlist_name"], shell=True)            
+            self.kill_mpc()
             self._clear = False
         if self.vol != self._vol:
             subprocess.call("mpc volume "+str(self._vol), shell=True)

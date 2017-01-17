@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 
 """"
 A rotary encoder turns infinitely in either direction.
@@ -16,35 +16,10 @@ https://gist.github.com/savetheclocktower/9b5f67c20f6c04e65ed88f2e594d43c1#file-
 
 """
 
-import os
-#import signal
-import threading
-import subprocess
-import sys
-
 from RPi import GPIO
 from queue import Queue
 
 DEBUG = True
-
-# SETTINGS
-# ========
-
-# The two pins that the encoder uses (BCM numbering).
-GPIO_A = 26   
-GPIO_B = 19
-
-# The pin that the knob's button is hooked up to. If you have no button, set
-# this to None.
-GPIO_BUTTON = 13   # todo assign 
-
-
-# the r.encoder has 96 (4x24) dents in 1 full rotation
-# for each click lets in change by INCREMENT amount
-INCREMENT = 2
-
-# (END SETTINGS)
-# 
 
 
 # When the knob is turned, the callback happens in a separate thread. If
@@ -54,12 +29,6 @@ INCREMENT = 2
 # volume-changing will happen in the main thread.
 QUEUE = Queue()
 
-# When we put something in the queue, we'll use an event to signal to the
-# main thread that there's something in there. Then the main thread will
-# process the queue and reset the event. If the knob is turned very quickly,
-# this event loop will fall behind, but that's OK because it consumes the
-# queue completely each time through the loop, so it's guaranteed to catch up.
-#EVENT = threading.Event()
 
 def debug(str):
   if not DEBUG:
@@ -75,7 +44,8 @@ class RotaryEncoder:
   http://abyz.co.uk/rpi/pigpio/examples.html
   """
   
-  def __init__(self, gpioA, gpioB, callback=None, buttonPin=None, buttonCallback=None):
+  def __init__(self, gpioA, gpioB, increment,
+               callback=None, buttonPin=None, buttonCallback=None):
     """
     Instantiate the class. Takes three arguments: the two pin numbers to
     which the rotary encoder is connected, plus a callback to run when the
@@ -86,10 +56,11 @@ class RotaryEncoder:
     means that the dial is being turned to the left. 
 
     """
-    
     self.lastGpio = None
     self.gpioA    = gpioA
     self.gpioB    = gpioB
+    self.increment = increment
+    self.neg_increment = -1*self.increment
     self.callback = callback
     debug("callback set"+str(self.callback))
     
@@ -109,16 +80,24 @@ class RotaryEncoder:
     if self.gpioButton:
       GPIO.setup(self.gpioButton, GPIO.IN, pull_up_down=GPIO.PUD_UP)
       GPIO.add_event_detect(self.gpioButton, GPIO.FALLING, self._buttonCallback, bouncetime=500)
-    
+
+
+      
     
   def destroy(self):
     debug("destroying rencoder handler")
     GPIO.remove_event_detect(self.gpioA)
     GPIO.remove_event_detect(self.gpioB)
     GPIO.cleanup()
+
+
+    
     
   def _buttonCallback(self, channel):
     self.buttonCallback(GPIO.input(channel))
+
+    
+
     
   def _callback(self, channel):
     level = GPIO.input(channel)
@@ -127,7 +106,7 @@ class RotaryEncoder:
     else:
       self.levB = level
       
-    # Debounce.
+    # De-bounce.
     if channel == self.lastGpio:
       return
     
@@ -137,84 +116,9 @@ class RotaryEncoder:
     self.lastGpio = channel
     if channel == self.gpioA and level == 1:
       if self.levB == 1:
-        self.callback(INCREMENT)
+        self.callback(self.increment)
     elif channel == self.gpioB and level == 1:
       if self.levA == 1:
-        self.callback(-1*INCREMENT)
+        self.callback(self.neg_increment)
 
 
-"""
-if __name__ == "__main__":
-  
-  gpioA = GPIO_A
-  gpioB = GPIO_B
-  gpioButton = GPIO_BUTTON
-  
-  def on_press(value):
-    # TODO what will the press do?
-    #v.toggle()
-    #print("Toggled mute to: {}".format(v.is_muted))
-    EVENT.set()
-  
-  # This callback runs in the background thread. All it does is put turn
-  # events into a queue and flag the main thread to process them. The
-  # queueing ensures that we won't miss anything if the knob is turned
-  # extremely quickly.
-  def on_turn(delta):
-    QUEUE.put(delta)
-    EVENT.set()
-    
-  def consume_queue():
-    while not QUEUE.empty():
-      delta = QUEUE.get()
-      handle_delta(delta)
-      
-  def handle_delta(delta):
-    #if v.is_muted:
-    #  debug("Unmuting")
-    #  v.toggle()
-    if delta == 1:
-      #TODO  move right
-      #vol = v.up()
-      pass
-    else:
-      #TODO move left
-      #vol = v.down()
-      pass
-    #print("Set volume to: {}".format(vol))
-
-    
-  #TODO what to do with this?  end of radyo on?  
-  def on_exit(a, b):
-    print("Exiting...")
-    encoder.destroy()
-    #TODO what to do with this?  end of radyo on?   no sys exit...
-    sys.exit(0)
-    
-  debug("Volume knob using pins {} and {}".format(gpioA, gpioB))
-  
-  if gpioButton != None:
-    debug("Volume button using pin {}".format(gpioButton))
-  
-  #debug("Initial volume: {}".format(v.volume))
-
-  encoder = RotaryEncoder(GPIO_A, GPIO_B, callback=on_turn, buttonPin=GPIO_BUTTON, buttonCallback=on_press)
-  signal.signal(signal.SIGINT, on_exit)
-  
-  while True:
-    # This is the best way I could come up with to ensure that this script
-    # runs indefinitely without wasting CPU by polling. The main thread will
-    # block quietly while waiting for the event to get flagged. When the knob
-    # is turned we're able to respond immediately, but when it's not being
-    # turned we're not looping at all.
-    # 
-    # The 1200-second (20 minute) timeout is a hack; for some reason, if I
-    # don't specify a timeout, I'm unable to get the SIGINT handler above to
-    # work properly. But if there is a timeout set, even if it's a very long
-    # timeout, then Ctrl-C works as intended. No idea why.
-    EVENT.wait(1200)
-    consume_queue()
-    EVENT.clear()
-
-
-"""

@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 
+import stationlist
+
 class Settings:
+    
     def __init__(self):
         self.icon = "radio.png"
         self.title = "Radyo Pi"
@@ -11,33 +14,47 @@ class Settings:
         self.wifistatus = {
             "image_wifion" : "wifi_on.png",
             "image_wifioff" : "wifi_off.png",
-            "width" : 80,
-            "height" : 80
+            "width" : self.width//4,
+            "height" : self.width//4
         }
 
         self.dial = {
             "image" : "reddial.png",
-            "width" : 4,
-            "height" : 240
+            "width" : self.width // 80,
+            "height" : self.height
+        }
+
+        self.volume = {
+            "min_vol" : 64,
+            "max_vol" : 100,
+            "ini_vol" : 73,
+            "increment" : 3 
+        }
+
+        self.rencoder = {
+            "gpioA" : 26,
+            "gpioB" : 19,
+            "gpioButton" : 13, # TODO
+            "increment" : 2 
         }
 
         self.glasspanel = {
             "image" : "glasspanel.png",
-            "width" : 340,
-            "height" : 246,
+            "width" : self.width + self.width // 10,
+            "height" : self.height + self.height // 40,
             "x_shift" : -8,
             "y_shift" : -4
         }
 
         self.sta_display = {
-            "width" : 100,
-            "height" : 60,
+            "width" : self.width // 3.2,
+            "height" : self.height // 4,
             "inactive_color" : (190, 190, 190),
             "active_color" : (30, 30, 30),
             "font" : "monospace",
             "font_size" : 15, 
-            "gap_x" : 20,
-            "gap_y" : 13
+            "gap_x" : self.width // 16,
+            "gap_y" : self.height // 20
         }
 
         self.sta_manager = {
@@ -46,69 +63,11 @@ class Settings:
             
         }
 
-        self.stations = [
-            {
-                "name" : "BBC Radio 1",
-                "url"  : "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio1_mf_p",  
-                "type" : "Pop Music",
-                "region" : "Europe",
-            },
-            {
-                "name" : "BBC Radio 2",
-                "url"  : "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio2_mf_p",
-                "type" : "Pop Music",
-                "region" : "Europe",
-            },
-            {
-                "name" : "BBC Radio 3",
-                "url"  : "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio3_mf_p",
-                "type" : "Orchestral Music",
-                "region" : "Europe",
-            },
-            {
-                "name" : "BBC Radio 4FM",
-                "url"  : "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio4fm_mf_p",
-                "type" : "News",
-                "region" : "Europe",
-            },
-            {
-                "name" : "BBC Radio 5LIVE",
-                "url"  : "http://bbcmedia.ic.llnwd.net/stream/bbcmedia_radio5live_mf_p",
-                "type" : "News",
-                "region" : "Europe",
-            },
-            {
-                "name" : "BBC World Service",
-                "url"  : "http://bbcwssc.ic.llnwd.net/stream/bbcwssc_mp1_ws-einws",
-                "type" : "News",
-                "region" : "Europe",
-            },
-            {
-                "name" : "Radio Okapi",
-                "url"  : "http://rs1.radiostreamer.com:8000/",
-                "type" : "Ethnic Music",
-                "region" : "Africa - DRC",
-            },
-            {
-                "name" : "GLT News & Ideas",
-                "url"  : "http://wgltradio.ilstu.edu:8000/wgltmain.mp3",
-                "type" : "Pop Music",
-                "region" : "North America",
-            },
-            {
-                "name" : "Latvijas Radio 3 Klasika",
-                "url"  : "http://lr3mp0.latvijasradio.lv:8004/",
-                "type" : "Orchestral Music",
-                "region" : "Europa",
-            },
-
-        ]
-
+        self.stations = stationlist.stations
         
         self.levels =[
             {
                 "name":"radyostart",
-                "duration" : 8,
                 "image":"yellowbg2.jpg",                
             },
             {
@@ -117,16 +76,12 @@ class Settings:
             },
             {
                 "name":"radyoend",
-                "duration" : 3,
                 "image" : "radyoend.jpg"
             }
         ]
 
 
 
-        self.stats ={
-
-        }
         
         
         
