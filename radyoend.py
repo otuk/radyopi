@@ -1,10 +1,15 @@
 
 import pygame
-    
+
+import clock
+
+
+
 def pre(control):
-    image = pygame.image.load(control.config.levels[control.gs.curr_state]["image"])
-    image = pygame.transform.scale(image,(control.config.width, control.config.height))
-    control.screen.blit(image, (0,0))
+    #create data for display
+    control.clk = clock.Clock(control.config)
+    control.cg = pygame.sprite.Group()
+    control.cg.add (control.clk)
     control.gs.set_level_on();
 
         
@@ -15,9 +20,7 @@ def evh(control):
             control.gs.set_game_off()
             control.gs.set_level_off()
         elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_s:
-                control.gs.curr_state = 1
-                control.gs.reset_life()
+            if event.key == pygame.K_f:
                 control.gs.set_level_off();
             elif event.key == pygame.K_q:
                 control.gs.set_level_off()
@@ -26,15 +29,19 @@ def evh(control):
 
                     
 def upd(control):
-    pass
+    control.cg.update()
 
 
     
 def drw(control, screen):
-    pass
+    control.cg.draw(screen)
 
     
         
 def pst(control):
-    pass
+    #clean up first
+    control.cg.remove()
+    #set level back to start
+    control.gs.curr_state = 0
+
 

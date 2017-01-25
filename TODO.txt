@@ -2,23 +2,26 @@
 RADYO PI TODO LIST:
 ============================
 
-- cleanup the code:  remove not needed, remove magic numbers
-- tighten logic, remove event etc
+
+
+- convert the encoder into events
+- convert volume into events
+- Write code to show clock when off - temperature parse, news headline parse?
+- on OFF/ON action generate event and display OFF screen/ON screen
+- on Encoder push button turn off screen backlight
+- on pi start up disconnect/clean all, and make the radiopi start
 - on radyo end clean up resources etc
-- Write code to show clock when off - what other info? temperature?
 - Start and end markers on the dial
-- Experiment with look and feel,  play with the font, glass front needed?
-- Dim the backlight - too bright  *  this seems to be more difficukt than expected
-- Connect the potentiometer
-- Write code to read volume from potentiometer
-- Write code to read on off from potentiometer
 - on the dial show station details from mpc parsing
 - Make the sound card work,
 - Do I  need an amp to connect a speaker?
 - Design box ideas with measurement, sockets exposed
-- on pi start up disconnect/clean all, and make the radiopi start
 - Build a cardbox housing
-
+- Connect the potentiometer
+- Write code to read volume from potentiometer
+- Write code to read on off from potentiometer
+- Experiment with look and feel,  play with the font, glass front needed?
+- Dim the backlight - too bright  *  this seems to be more difficukt than expected
 
 
 

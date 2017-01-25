@@ -45,6 +45,8 @@ def evh(control):
             if event.key == pygame.K_q:
                 control.gs.set_level_off()
                 control.gs.set_game_off()
+            if event.key == pygame.K_f:
+                control.gs.set_level_off()
     # TODO the following polling can be made into a pygame user event
     # and can be part of event loop
     if control.dial.with_encoder:
@@ -80,3 +82,5 @@ def pst(control):
     #turn off mpc
     control.volman.mute()    
     control.volman.kill_mpc()
+    # radyo off mode
+    control.gs.curr_state += 1 

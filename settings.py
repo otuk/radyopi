@@ -46,6 +46,16 @@ class Settings:
             "y_shift" : -4
         }
 
+        self.clock = {
+            "width" : int(self.width //1.5) ,
+            "height" : int(self.height // 2),
+            "image" : "clockback.jpg",
+            "color" : (190, 190, 190),
+            "font" : "Helvetica",
+            "font_size" : 45, 
+            "gap_y" : self.height // 20
+        }
+        
         self.sta_display = {
             "width" : self.width // 3.2,
             "height" : self.height // 4,

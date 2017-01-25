@@ -13,7 +13,7 @@ class Station(pygame.sprite.Sprite):
     
     def __init__(self, config, stano, col, row, starts_at, ind_starts_at, ig):
         super().__init__()
-        print ("station ", stano, "col:",col, "row:",row, "starts_at:",starts_at )
+        #print ("station ", stano, "col:",col, "row:",row, "starts_at:",starts_at )
         self.config = config
         self.active = False
         self.no = stano

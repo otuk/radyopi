@@ -30,6 +30,7 @@ class Controller:
         self.bdg = pygame.sprite.Group()
         self.bdg.add(self.backdial)
         # wifi checker
+        # TODO call the wifi checker during radyo on? perf impact?
         self.wifis = wifistatus.Wifistatus(config, self.gs)
         self.wfg = pygame.sprite.Group()
         self.wfg.add(self.wifis)
