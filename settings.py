@@ -49,10 +49,12 @@ class Settings:
         self.clock = {
             "width" : int(self.width //1.5) ,
             "height" : int(self.height // 2),
-            "image" : "clockback.jpg",
+            "image" : "clockback2.png",
             "color" : (190, 190, 190),
             "font" : "Helvetica",
-            "font_size" : 45, 
+            "font_size_L" : 75,
+            "font_size_M" : 30,
+            "font_size_S" : 15, 
             "gap_y" : self.height // 20
         }
         
@@ -78,15 +80,15 @@ class Settings:
         self.levels =[
             {
                 "name":"radyostart",
-                "image":"yellowbg2.jpg",                
+                "image":"yellowbg3.png",                
             },
             {
                 "name":"radyoon",
-                "image":"radyoon.jpg",
+                "image":"yellowbg3.png",                
             },
             {
                 "name":"radyoend",
-                "image" : "radyoend.jpg"
+                "image" : "clockback2.png"
             }
         ]
 

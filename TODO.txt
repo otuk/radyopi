@@ -3,7 +3,6 @@ RADYO PI TODO LIST:
 ============================
 
 
-
 - convert the encoder into events
 - convert volume into events
 - Write code to show clock when off - temperature parse, news headline parse?
@@ -13,7 +12,7 @@ RADYO PI TODO LIST:
 - on radyo end clean up resources etc
 - Start and end markers on the dial
 - on the dial show station details from mpc parsing
-- Make the sound card work,
+- Make the sound card work?
 - Do I  need an amp to connect a speaker?
 - Design box ideas with measurement, sockets exposed
 - Build a cardbox housing
