@@ -3,7 +3,6 @@ RADYO PI TODO LIST:
 ============================
 
 
-- convert the encoder into events
 - convert volume into events
 - Write code to show clock when off - temperature parse, news headline parse?
 - on OFF/ON action generate event and display OFF screen/ON screen
@@ -32,3 +31,4 @@ DONE
 - Get rid of mouse pointer
 - Connect the encoder
 - Write code to read encoder left turn or right turn
+- convert the encoder into events

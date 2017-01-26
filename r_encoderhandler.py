@@ -22,13 +22,6 @@ from queue import Queue
 DEBUG = True
 
 
-# When the knob is turned, the callback happens in a separate thread. If
-# those turn callbacks fire erratically or out of order, we'll get confused
-# about which direction the knob is being turned, so we'll use a queue to
-# enforce FIFO. The callback will push onto a queue, and all the actual
-# volume-changing will happen in the main thread.
-QUEUE = Queue()
-
 
 def debug(str):
   if not DEBUG:

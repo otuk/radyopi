@@ -68,15 +68,9 @@ class Dial(pygame.sprite.Sprite):
     # extremely quickly.
     def on_turn(self, delta):
         #print("on turn + delta ", delta)
-        reh.QUEUE.put(delta)
+        pygame.event.post(pygame.event.Event(pygame.USEREVENT,
+                                             name="_dial", side=delta))
 
-    
-    def consume_queue(self):
-        sum_delta = 0
-        while not reh.QUEUE.empty():
-            delta = reh.QUEUE.get()
-            sum_delta += delta
-        return sum_delta     
 
 
     def destroy(self):

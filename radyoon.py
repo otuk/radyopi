@@ -47,14 +47,11 @@ def evh(control):
                 control.gs.set_game_off()
             if event.key == pygame.K_f:
                 control.gs.set_level_off()
-    # TODO the following polling can be made into a pygame user event
-    # and can be part of event loop
-    if control.dial.with_encoder:
-        d = control.dial.consume_queue()
-        if d != 0 :
-            control.staman.add_delta(d*-8)
-            control.dial.add_delta(d*3)                        
-
+        elif event.type == pygame.USEREVENT:
+            if event.name == "_dial":
+                d = event.side
+                control.staman.add_delta(-3*d)
+                control.dial.add_delta(2*d)
         
             
                 
