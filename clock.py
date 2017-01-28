@@ -15,14 +15,16 @@ class Clock(pygame.sprite.Sprite):
         self.config = config
         self.largefont = pygame.font.SysFont(self.config.clock["font"],
                                      self.config.clock["font_size_L"])
-        largefont.set_bold(True)
+        self.largefont.set_bold(True)
         self.mediumfont = pygame.font.SysFont(self.config.clock["font"],
                                      self.config.clock["font_size_M"])
         self.smallfont = pygame.font.SysFont(self.config.clock["font"],
                                      self.config.clock["font_size_S"])
         Clock.UPDATEEVERY = Clock.UPDATEEVERY * config.FPS;        
         self.counter = Clock.UPDATEEVERY
+        self.newsfetchcounter = 0
         self.newscounter = 0
+        self.newslength = 0
         self.prepare_img()
 
         
@@ -44,10 +46,10 @@ class Clock(pygame.sprite.Sprite):
         self.bgimg.blit(timeimg,(rect.x, 10))
         self.bgimg.blit(ampmimg,(rect.x+rect.w +5 , 40))
         self.bgimg.blit(dateimg,(rect.x + 20, 80))
-        self.newscounter += 1
-        if self.newscounter % Clock.UPDATENEWS == 0 :
+        #self.newsfetchcounter += 1
+        if self.newsfetchcounter % Clock.UPDATENEWS == 0 :
             self.printnews()
-            self.newscounter = 0;
+            self.newsfetchcounter = 0;
         self.image = self.bgimg
         self.rect = self.image.get_rect()
         self.rect.centerx = self.config.width // 2
@@ -63,8 +65,48 @@ class Clock(pygame.sprite.Sprite):
 
         
     def printnews(self):
-        d = feedparser.parse('http://feeds.bbci.co.uk/news/rss.xml?edition=us')
-        nt = d.entries[0]["title"]
-        newimg = self.smallfont.render(nt, Clock.ANTIALIAS_YES, 
+        if self.newscounter < self.newslength:
+            nt = self.newsdata.entries[self.newscounter]["title"]
+            ns = self.newsdata.entries[self.newscounter]["summary"]
+            ystep = 17
+            ystart = self.format_text(nt, self.smallfont, xstart=4, ystart=104,
+                                      ystep=ystep, cwidth=48, baseimg=self.bgimg)    
+
+            ystart = self.format_text(ns, self.smallfont, xstart=4, ystart=ystart+ystep,
+                                      ystep=ystep, cwidth=48, baseimg=self.bgimg)    
+            self.newscounter += 1
+        else:
+            print("getting news")
+            self.newsdata = feedparser.parse(
+                'http://feeds.bbci.co.uk/news/rss.xml?edition=us')
+            self.newslength = len(self.newsdata.entries)
+            print("news len ",self.newslength)
+            self.newscounter = 0
+
+
+            
+    def format_text(self, text, txtfont, xstart, ystart, ystep, cwidth, baseimg):
+            textli = text.split()
+            maxsl = cwidth
+            slen = 0
+            line = []
+            yshift = 0
+            for w in textli:
+                if slen+len(w) < maxsl:
+                    line.append(w+" ")
+                    slen += len(w) +1
+                else:
+                    titimg = txtfont.render( ''.join(line), 
+                                             Clock.ANTIALIAS_YES,
+                                             self.config.clock["color"])
+                    baseimg.blit(titimg, (xstart, ystart + yshift))
+                    slen = len(w)+1
+                    line = [w+" "]
+                    yshift += ystep
+            if len(line) > 0:
+                titimg = txtfont.render( ''.join(line), 
+                                         Clock.ANTIALIAS_YES,
                                          self.config.clock["color"])
-        self.bgimg.blit(newimg,(rect.x + 10, 100))
+                baseimg.blit(titimg, (xstart, ystart + yshift))
+            return ystart + yshift + ystep
+            
