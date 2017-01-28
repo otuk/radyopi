@@ -7,7 +7,7 @@ import feedparser
 class Clock(pygame.sprite.Sprite):
 
     ANTIALIAS_YES = True
-    UPDATEEVERY = 15 # seconds
+    UPDATEEVERY = 5 # seconds
     UPDATENEWS = 2 # times  
     
     def __init__(self, config):
@@ -18,8 +18,10 @@ class Clock(pygame.sprite.Sprite):
         self.largefont.set_bold(True)
         self.mediumfont = pygame.font.SysFont(self.config.clock["font"],
                                      self.config.clock["font_size_M"])
-        self.smallfont = pygame.font.SysFont(self.config.clock["font"],
+        self.smallfont = pygame.font.Font("OxygenMono-Regular.otf", #self.config.clock["font"],
                                      self.config.clock["font_size_S"])
+        self.xsmallfont = pygame.font.SysFont(self.config.clock["font"],
+                                     self.config.clock["font_size_XS"])
         Clock.UPDATEEVERY = Clock.UPDATEEVERY * config.FPS;        
         self.counter = Clock.UPDATEEVERY
         self.newsfetchcounter = 0
@@ -35,13 +37,11 @@ class Clock(pygame.sprite.Sprite):
         timeimg = self.largefont.render(self.time, Clock.ANTIALIAS_YES, 
                                          self.config.clock["color"])
         self.bgimg = pygame.image.load(self.config.clock["image"])
-        #self.bgimg = pygame.transform.scale(self.bgimg,(self.config.width,
-        #                                              self.config.height))
         rect = timeimg.get_rect()
         rect.centerx = self.config.width // 2 - 20
         ampmimg = self.mediumfont.render(self.ampm, Clock.ANTIALIAS_YES, 
                                          self.config.clock["color"])
-        dateimg = self.smallfont.render(self.date, Clock.ANTIALIAS_YES, 
+        dateimg = self.xsmallfont.render(self.date, Clock.ANTIALIAS_YES, 
                                          self.config.clock["color"])
         self.bgimg.blit(timeimg,(rect.x, 10))
         self.bgimg.blit(ampmimg,(rect.x+rect.w +5 , 40))
@@ -68,12 +68,14 @@ class Clock(pygame.sprite.Sprite):
         if self.newscounter < self.newslength:
             nt = self.newsdata.entries[self.newscounter]["title"]
             ns = self.newsdata.entries[self.newscounter]["summary"]
-            ystep = 17
-            ystart = self.format_text(nt, self.smallfont, xstart=4, ystart=104,
-                                      ystep=ystep, cwidth=48, baseimg=self.bgimg)    
+            ystep = 24
+            xstart = 4
+            cwidth = 41
+            ystart = self.format_text(nt, self.smallfont, xstart, ystart=104,
+                                      ystep=ystep, cwidth=cwidth, baseimg=self.bgimg)    
 
-            ystart = self.format_text(ns, self.smallfont, xstart=4, ystart=ystart+ystep,
-                                      ystep=ystep, cwidth=48, baseimg=self.bgimg)    
+            ystart = self.format_text(ns, self.smallfont, xstart, ystart=ystart+ystep//2,
+                                      ystep=ystep, cwidth=cwidth, baseimg=self.bgimg)    
             self.newscounter += 1
         else:
             print("getting news")
