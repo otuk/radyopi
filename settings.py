@@ -49,12 +49,14 @@ class Settings:
         self.clock = {
             "width" : int(self.width //1.5) ,
             "height" : int(self.height // 2),
-            "image" : "clockback2.png",
+            "image" : "clockback.png",
             "color" : (190, 190, 190),
-            "font" : "Helvetica",
+            #"font" : "Helvetica",
+            "font" : "monospace",
             "font_size_L" : 75,
             "font_size_M" : 30,
-            "font_size_S" : 15, 
+            "font_size_S" : 13,
+            "font_size_XS" : 15,             
             "gap_y" : self.height // 20
         }
         
@@ -88,7 +90,7 @@ class Settings:
             },
             {
                 "name":"radyoend",
-                "image" : "clockback2.png"
+                "image" : "clockback.png"
             }
         ]
 
