@@ -7,8 +7,8 @@ import feedparser
 class Clock(pygame.sprite.Sprite):
 
     ANTIALIAS_YES = True
-    UPDATEEVERY = 5 # seconds
-    UPDATENEWS = 2 # times  
+    UPDATEEVERY = 15 # seconds
+    UPDATENEWS = 3 # times  
     
     def __init__(self, config):
         super().__init__()
