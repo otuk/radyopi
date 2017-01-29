@@ -10,11 +10,12 @@ import dial
 
 
 def pre(control):
-    control.volman = volumemanager.VolumeManager(control.config)
+    control.volman = volumemanager.VolumeManager(control.config, control.gs)
     control.vg = pygame.sprite.Group()
     control.vg.add(control.volman)
     control.ig = pygame.sprite.Group()
-    control.staman = stationmanager.StationManager(control.config, control.ig)
+    control.staman = stationmanager.StationManager(control.config,
+                                                   control.gs, control.ig)
     control.stag = pygame.sprite.Group()
     for sta in control.staman.stas:
         control.stag.add(sta)
@@ -75,6 +76,8 @@ def drw(control, screen):
 def pst(control):
     # do some clean up
     # TODO  what else?
+    control.gs.set_last_vol(control.volman.vol)
+    control.gs.set_last_delta(control.staman.delta)
     control.dial.destroy()
     #turn off mpc
     control.volman.mute()    

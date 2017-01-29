@@ -7,13 +7,15 @@ import pygame
 
 class VolumeManager(pygame.sprite.Sprite):
 
-    def __init__(self, config):
+    
+    def __init__(self, config, gs):
         super().__init__()
         self.config = config
-        self._vol = config.volume["ini_vol"]
+        self.gs = gs
+        self._vol = gs.get_last_vol()
         self.min = config.volume["min_vol"]
         self.max = config.volume["max_vol"]
-        self.increment = config.volume["increment"]        
+        self.increment = config.volume["increment"]
         self.vol = 0
         self.premutevol = self._vol
         self._clear = False

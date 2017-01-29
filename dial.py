@@ -14,12 +14,13 @@ class Dial(pygame.sprite.Sprite):
     
     def __init__(self, config, gs):
         super().__init__()
+        self.gs = gs
         self.image = pygame.image.load(config.dial["image"])
         self.image = pygame.transform.scale(self.image,(config.dial["width"],
                                                         config.dial["height"]))
         self.rect = self.image.get_rect()
         self.delta = 0
-        self._x = config.width // 2
+        self._x =  config.width // 2
         self._y = 0
         self.rect.x = self._x + self.delta
         self.rect.y = self._y
@@ -63,9 +64,7 @@ class Dial(pygame.sprite.Sprite):
 
     
     # This callback runs in the background thread. All it does is put turn
-    # events into a queue 
-    # queueing ensures that we won't miss anything if the knob is turned
-    # extremely quickly.
+    # events into pygame event queue 
     def on_turn(self, delta):
         #print("on turn + delta ", delta)
         pygame.event.post(pygame.event.Event(pygame.USEREVENT,

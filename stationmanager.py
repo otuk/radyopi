@@ -7,11 +7,12 @@ import station
 
 class StationManager():
 
-    def __init__(self, config, ig):
+    def __init__(self, config, gs, ig):
         super().__init__()
         self.config = config
+        self.gs = gs
         self.activesta = None
-        self.delta = 0
+        self.delta = self.gs.get_last_delta()
         self.stas = []
         s = 0
         self.rows = config.sta_manager["rows"]
@@ -28,6 +29,7 @@ class StationManager():
             s += 1
         self.playlistname = config.sta_manager["playlist_name"]    
         self.writeplaylist()
+        self.set_delta(self.delta)
 
         
     def writeplaylist(self):
@@ -51,4 +53,4 @@ class StationManager():
         for sta in self.stas:
             sta.set_delta(self.delta)
 
-        
+            

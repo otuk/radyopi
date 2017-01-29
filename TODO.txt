@@ -3,16 +3,21 @@ RADYO PI TODO LIST:
 ============================
 
 
-- remmeber the last delta/station location and volume level between the switch on-off
-- change the clock background to a plain img file/darker
 - on pi reboot start mpd service, cd to radyo pi and start the script 
 - Design box ideas with measurement, sockets exposed
 - Build a cardbox housing
 - Connect the potentiometer
 - convert volume into events
-- Write code to show temperature parsed on clock screen
+- wireless setup via python - ssid scan, enter password
+- write document for installation with installation for dependencies
+  (jessie, setup wifi(ssid/apssword)- or used cabled connection, install mpd/mpc)
+  (RPi, feedparser, Queue, python3, pygame)
+  (keys q- f- arrows-)
+  (adafruit parts, extra extension, rotary encoder, )
 - on OFF/ON action generate event and display OFF screen/ON screen
 - on Encoder push button turn off screen backlight - code gpio listener for this
+- wire up the on/off switch from encoder to gpio pins
+- Write code to show temperature parsed on clock screen
 - on radyo end clean up resources etc
 - Start and end markers on the dial
 - on the dial show station details from mpc parsing
@@ -35,3 +40,5 @@ DONE
 - Write code to read encoder left turn or right turn
 - convert the encoder into events
 - Write code to show clock when off -  news headline parse
+- remmeber the last delta/station location and volume level between the switch on-off
+- change the clock background to a plain img file/darker
