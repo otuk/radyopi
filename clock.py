@@ -46,7 +46,7 @@ class Clock(pygame.sprite.Sprite):
         self.bgimg.blit(timeimg,(rect.x, 10))
         self.bgimg.blit(ampmimg,(rect.x+rect.w +5 , 40))
         self.bgimg.blit(dateimg,(rect.x + 20, 80))
-        #self.newsfetchcounter += 1
+        self.newsfetchcounter += 1
         if self.newsfetchcounter % Clock.UPDATENEWS == 0 :
             self.printnews()
             self.newsfetchcounter = 0;

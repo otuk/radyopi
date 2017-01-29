@@ -3,8 +3,9 @@ import pygame
 
 import stats
 import radyostart
-import radyoend
+import clockon
 import radyoon
+import radyoend
 import background
 import wifistatus
 import glasspanel
@@ -75,7 +76,8 @@ class Controller:
 
     levels = [
         [radyostart.pre, radyostart.evh, radyostart.upd, radyostart.drw, radyostart.pst],
+        [clockon.pre, clockon.evh, clockon.upd, clockon.drw, clockon.pst],
         [radyoon.pre, radyoon.evh, radyoon.upd, radyoon.drw, radyoon.pst],
-        [radyoend.pre, radyoend.evh, radyoend.upd, radyoend.drw, radyoend.pst]
+        [radyoend.pre, radyoend.evh, radyoend.upd, radyoend.drw, radyoend.pst],
     ]
         

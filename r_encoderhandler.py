@@ -75,21 +75,10 @@ class RotaryEncoder:
       GPIO.add_event_detect(self.gpioButton, GPIO.FALLING, self._buttonCallback, bouncetime=500)
 
 
-      
-    
-  def destroy(self):
-    debug("destroying rencoder handler")
-    GPIO.remove_event_detect(self.gpioA)
-    GPIO.remove_event_detect(self.gpioB)
-    GPIO.cleanup()
-
-
-    
     
   def _buttonCallback(self, channel):
     self.buttonCallback(GPIO.input(channel))
 
-    
 
     
   def _callback(self, channel):
@@ -115,3 +104,12 @@ class RotaryEncoder:
         self.callback(self.neg_increment)
 
 
+
+  def destroy(self):
+    debug("destroying rencoder handler")
+    GPIO.remove_event_detect(self.gpioA)
+    GPIO.remove_event_detect(self.gpioB)
+    GPIO.cleanup()
+
+
+        

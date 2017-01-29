@@ -2,7 +2,6 @@
 
 import pygame
 
-
 import volumemanager
 import stationmanager
 import dial
@@ -78,9 +77,8 @@ def pst(control):
     # TODO  what else?
     control.gs.set_last_vol(control.volman.vol)
     control.gs.set_last_delta(control.staman.delta)
-    control.dial.destroy()
+
     #turn off mpc
     control.volman.mute()    
-    control.volman.kill_mpc()
-    # radyo off mode
-    control.gs.curr_state += 1 
+    control.volman.kill_mpc()    # radyo off mode
+    control.gs.curr_state = 1 # back to clock
