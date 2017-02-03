@@ -1,6 +1,10 @@
 #emacs files
 *.py~
 
+#visual studio code
+.vscode
+tags
+
 #logfile for development
 log.txt
 

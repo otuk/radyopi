@@ -2,17 +2,23 @@
 import pygame
 
 import clock
+import volumemanager
 
 
 
 def pre(control):
-    #create data for display
-    control.clk = clock.Clock(control.config)
-    control.cg = pygame.sprite.Group()
-    control.cg.add (control.clk)
-    control.gs.set_level_on();
-
-        
+    # check if the ON button is on
+    # if it is skip to radyoon
+    if control.clk == None:
+        #create data for display
+        control.clk = clock.Clock(control.config)
+        control.cg = pygame.sprite.Group()
+        control.cg.add (control.clk)
+        #print(" clcokon initialized")
+        control.volman = volumemanager.VolumeManager(control.config, control.gs)
+        control.vg = pygame.sprite.Group()
+        control.vg.add(control.volman)
+    control.gs.set_level_on();        
         
 def evh(control):
     for event in pygame.event.get():
@@ -40,7 +46,11 @@ def drw(control, screen):
         
 def pst(control):
     #clean up first
-    control.cg.remove()
+
+    control.cg.empty()
+    control.clk = None
+    control.cg = None
+    #print("clockon cleared")
     #set level to radyo on
     control.gs.curr_state = 2
 

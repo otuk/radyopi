@@ -5,32 +5,36 @@ import pygame
 import feedparser
 
 class Clock(pygame.sprite.Sprite):
-
+    """
+    """
     ANTIALIAS_YES = True
-    UPDATEEVERY = 3 # seconds
-    UPDATENEWS = 2 # times  
-    
+    UPDATEEVERY = 2 # seconds
+    UPDATENEWS = 1 # times  
+
     def __init__(self, config):
         super().__init__()
+        #print("init new clock")
         self.config = config
         self.largefont = pygame.font.SysFont(self.config.clock["font"],
                                      self.config.clock["font_size_L"])
         self.largefont.set_bold(True)
         self.mediumfont = pygame.font.SysFont(self.config.clock["font"],
                                      self.config.clock["font_size_M"])
-        self.smallfont = pygame.font.Font("OxygenMono-Regular.otf", #self.config.clock["font"],
+        self.smallfont = pygame.font.Font("OxygenMono-Regular.otf", 
                                      self.config.clock["font_size_S"])
         self.xsmallfont = pygame.font.SysFont(self.config.clock["font"],
                                      self.config.clock["font_size_XS"])
-        Clock.UPDATEEVERY = Clock.UPDATEEVERY * config.FPS;        
-        self.counter = Clock.UPDATEEVERY
+        self.updatefreq = Clock.UPDATEEVERY * config.FPS        
+        self.counter = self.updatefreq
         self.newsfetchcounter = 0
         self.newscounter = 0
         self.newslength = 0
         self.prepare_img()
+        #print("new clock created")
 
         
     def prepare_img(self):
+        #print("updating clock image")
         self.time = datetime.datetime.now().strftime("%I:%M")
         self.ampm = datetime.datetime.now().strftime("%p")
         self.date = datetime.datetime.now().strftime("%B %d - %A")
@@ -49,7 +53,7 @@ class Clock(pygame.sprite.Sprite):
         self.newsfetchcounter += 1
         if self.newsfetchcounter % Clock.UPDATENEWS == 0 :
             self.printnews()
-            self.newsfetchcounter = 0;
+            self.newsfetchcounter = 0
         self.image = self.bgimg
         self.rect = self.image.get_rect()
         self.rect.centerx = self.config.width // 2
@@ -57,15 +61,17 @@ class Clock(pygame.sprite.Sprite):
 
         
     def update(self):
+        #print("clock update called", self.counter)
         self.counter -= 1
         if self.counter <= 0:
-            self.counter = Clock.UPDATEEVERY
+            self.counter = self.updatefreq
             self.prepare_img()
 
 
         
     def printnews(self):
         if self.newscounter < self.newslength:
+            #print("printing news on screen ", self.newscounter)
             nt = self.newsdata.entries[self.newscounter]["title"]
             ns = self.newsdata.entries[self.newscounter]["summary"]
             ystep = 24
@@ -78,15 +84,14 @@ class Clock(pygame.sprite.Sprite):
                                       ystep=ystep, cwidth=cwidth, baseimg=self.bgimg)    
             self.newscounter += 1
         else:
-            print("getting news")
+            #print("getting news")
             self.newsdata = feedparser.parse(
                 'http://feeds.bbci.co.uk/news/rss.xml?edition=us')
             self.newslength = len(self.newsdata.entries)
-            print("news len ",self.newslength)
+            #print("news len ",self.newslength)
             self.newscounter = 0
 
 
-            
     def format_text(self, text, txtfont, xstart, ystart, ystep, cwidth, baseimg):
             textli = text.split()
             maxsl = cwidth

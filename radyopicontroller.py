@@ -41,7 +41,8 @@ class Controller:
         self.gg.add(self.glass)
         # additionally each level creates their own needed elements
         # and populate the controller
-        
+        self.clk = None
+        self.ig = None
         
     
     def screen_ready(self, screen):

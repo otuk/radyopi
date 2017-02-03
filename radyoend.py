@@ -37,7 +37,10 @@ def pst(control):
     # this level is only to shutdown  and clean resources
     # TODO clean - all - GPIO
     control.dial.destroy()
-    pass
+    control.volman.mute()
+    control.volman.stop_mpc()    # radyo off mode
+    control.volman.remove_playlist()
+    print("radyo end executed")
 
 
 

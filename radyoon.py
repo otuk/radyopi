@@ -9,18 +9,16 @@ import dial
 
 
 def pre(control):
-    control.volman = volumemanager.VolumeManager(control.config, control.gs)
-    control.vg = pygame.sprite.Group()
-    control.vg.add(control.volman)
     control.ig = pygame.sprite.Group()
     control.staman = stationmanager.StationManager(control.config,
-                                                   control.gs, control.ig)
+                                                       control.gs, control.ig)
     control.stag = pygame.sprite.Group()
     for sta in control.staman.stas:
         control.stag.add(sta)
-    control.dial = dial.Dial(control.config, control.gs)
-    control.dg = pygame.sprite.Group()
-    control.dg.add(control.dial)
+        control.dial = dial.Dial(control.config, control.gs)
+        control.dg = pygame.sprite.Group()
+        control.dg.add(control.dial)
+    control.volman.unmute()
     control.gs.set_level_on()
     
         
@@ -57,8 +55,8 @@ def evh(control):
                 
 def upd(control):
     control.vg.update()
-    control.ig.update()    
     control.stag.update()    
+    control.ig.update()    
     control.dg.update()
 
         
@@ -77,8 +75,8 @@ def pst(control):
     # TODO  what else?
     control.gs.set_last_vol(control.volman.vol)
     control.gs.set_last_delta(control.staman.delta)
-
     #turn off mpc
     control.volman.mute()    
-    control.volman.kill_mpc()    # radyo off mode
+    control.volman.update()
+    control.volman.stop_mpc()
     control.gs.curr_state = 1 # back to clock

@@ -31,6 +31,11 @@ class Settings:
             "increment" : 3 
         }
 
+        self.r_volumebutton = {
+            "gpio" : 6,
+            "increment" : 3 
+        }
+
         self.rencoder = {
             "gpioA" : 26,
             "gpioB" : 19,
