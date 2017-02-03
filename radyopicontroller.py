@@ -43,6 +43,7 @@ class Controller:
         # and populate the controller
         self.clk = None
         self.ig = None
+        self.volman = None
         
     
     def screen_ready(self, screen):

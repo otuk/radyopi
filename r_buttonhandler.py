@@ -39,18 +39,20 @@ class ButtonHandler:
 
     self.gpioButton     = buttonPin
     self.buttonCallback = buttonCallback
-    self.level =0
+    self.level = BS_OFF
 
     GPIO.setmode(GPIO.BCM)
     if self.gpioButton:
       GPIO.setup(self.gpioButton, GPIO.IN, pull_up_down=GPIO.PUD_UP)
       GPIO.add_event_detect(self.gpioButton, GPIO.BOTH,  self._buttonCallback, bouncetime=500)
-
+      self.buttonCallback(self.level)
 
     
   def _buttonCallback(self, channel):
-    self.level = GPIO.input(channel))
-    self.buttonCallback(GPIO.input(channel))
+    self.level = GPIO.input(channel)
+    print("button calling back ", self.level)
+    self.buttonCallback(self.level)
+
 
 
   def destroy(self):

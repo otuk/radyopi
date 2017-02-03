@@ -36,7 +36,7 @@ class Dial(pygame.sprite.Sprite):
                                              callback=self.on_turn,
                                              buttonPin=gpioButton,
                                              buttonCallback=self.on_press)
-        #print("dial created with encoder")
+        print("dial created with encoder", gpioA, gpioB, gpioButton)
 
         
 

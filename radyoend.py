@@ -41,6 +41,8 @@ def pst(control):
     control.volman.stop_mpc()    # radyo off mode
     control.volman.remove_playlist()
     print("radyo end executed")
+    control.volman.destroy()
+    control.volman.clear_gpio()
 
 
 

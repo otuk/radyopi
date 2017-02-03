@@ -108,7 +108,7 @@ class RotaryEncoder:
     debug("destroying rencoder handler")
     GPIO.remove_event_detect(self.gpioA)
     GPIO.remove_event_detect(self.gpioB)
-    GPIO.cleanup()
+
 
 
         

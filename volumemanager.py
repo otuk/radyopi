@@ -31,10 +31,10 @@ class VolumeManager(pygame.sprite.Sprite):
         self.with_button_handler = RUNNING_ON_PI
         if  self.with_button_handler:
             gpio = config.r_volumebutton["gpio"]
-            increment_amount = config.r_volumebutton["increment"]
-            self.encoder = rbh.ButtonHandler(gpio,
-                                            increment_amount,
-                                            callback=self.on_onoff)
+            print("vol bu" , gpio)
+            #increment_amount = config.r_volumebutton["increment"] # TODO
+            self.onoffbutton = rbh.ButtonHandler(buttonPin=gpio,
+                                            buttonCallback=self.on_onoff)
 
         
     def set_volume(self, v):
@@ -97,5 +97,21 @@ class VolumeManager(pygame.sprite.Sprite):
 
 
     def on_onoff(self, onoffv):
+        #print("on off generating event")
+        if onoffv == 0:
+            onoffv = 1
+        else:
+            onoffv = 2
         pygame.event.post(pygame.event.Event(pygame.USEREVENT, 
                             name="_onoff", onoffv=onoffv))        
+
+
+
+    def destroy(self):
+        if self.with_button_handler:
+            self.onoffbutton.destroy()
+
+        
+    def clear_gpio(self):
+        if self.with_button_handler:
+            GPIO.cleanup()

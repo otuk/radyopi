@@ -15,6 +15,7 @@ def pre(control):
         control.cg = pygame.sprite.Group()
         control.cg.add (control.clk)
         #print(" clcokon initialized")
+    if control.volman == None:
         control.volman = volumemanager.VolumeManager(control.config, control.gs)
         control.vg = pygame.sprite.Group()
         control.vg.add(control.volman)
@@ -31,7 +32,14 @@ def evh(control):
             elif event.key == pygame.K_q:
                 control.gs.set_level_off()
                 control.gs.set_game_off()
-
+        elif event.type == pygame.USEREVENT:
+            if event.name == "_onoff":
+                status = event.onoffv
+                print("con compare status", status, control.gs.curr_state )
+                if status != control.gs.curr_state :
+                    control.gs.set_level_off()
+                    return
+                    
 
                     
 def upd(control):

@@ -33,6 +33,7 @@ class Settings:
 
         self.r_volumebutton = {
             "gpio" : 6,
+            "gpiovollevel" : 5,
             "increment" : 3 
         }
 

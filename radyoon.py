@@ -2,7 +2,7 @@
 
 import pygame
 
-import volumemanager
+#import volumemanager
 import stationmanager
 import dial
 
@@ -15,11 +15,12 @@ def pre(control):
     control.stag = pygame.sprite.Group()
     for sta in control.staman.stas:
         control.stag.add(sta)
-        control.dial = dial.Dial(control.config, control.gs)
-        control.dg = pygame.sprite.Group()
-        control.dg.add(control.dial)
+    control.dial = dial.Dial(control.config, control.gs)
+    control.dg = pygame.sprite.Group()
+    control.dg.add(control.dial)
     control.volman.unmute()
     control.gs.set_level_on()
+    print("radyo on pre executed")
     
         
 
@@ -50,6 +51,12 @@ def evh(control):
                 d = event.side
                 control.staman.add_delta(-3*d)
                 control.dial.add_delta(2*d)
+            elif event.name == "_onoff":
+                status = event.onoffv
+                print("ron compare status", status, control.gs.curr_state )
+                if status != control.gs.curr_state :
+                    control.gs.set_level_off()
+                    return
         
             
                 
@@ -79,4 +86,8 @@ def pst(control):
     control.volman.mute()    
     control.volman.update()
     control.volman.stop_mpc()
+    control.dial.destroy()
+    control.dg.empty()
+    control.dial = None
+    control.dg = None
     control.gs.curr_state = 1 # back to clock
