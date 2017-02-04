@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+  
 
 import subprocess
 import pygame
@@ -33,7 +33,8 @@ class VolumeManager(pygame.sprite.Sprite):
             #increment_amount = config.r_volumebutton["increment"] # TODO
             self.onoffbutton = rbh.ButtonHandler(buttonPin=gpio,
                                             buttonCallback=self.on_onoff)
-
+            self.on_onoff(self.onoffbutton.level)
+            
         
     def set_volume(self, v):
         if v > self.max:

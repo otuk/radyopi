@@ -14,15 +14,15 @@ import glasspanel
 
 class Controller:
 
-    PRE = 0
-    EVH = 1
-    UPD = 2
-    DRW = 3
-    PST = 4
+    PRE = 0 # Prepare level for excution
+    EVH = 1 # event handler for level
+    UPD = 2 # uopdate level objects
+    DRW = 3 # draw level objects that need drawing
+    PST = 4 # Post level cleanup and get ready for next level
 
-    CLOCKON = 1
-    RADYOON = 2
-    RADYOEND = 3
+    CLOCKON = 1  # level clock on, default when radio is first booted
+    RADYOON = 2  # level for whenradio is turned on 
+    RADYOEND = 3 # if radio program is quitted 
 
     
     def __init__(self, config):

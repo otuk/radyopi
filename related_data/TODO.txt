@@ -2,30 +2,28 @@
 RADYO PI TODO LIST:
 ============================
 
-- create long living objects with lifecycles consistently
+
+- convert volume into events
+- Write code to read volume from potentiometer
 - standardize names and process
-- on OFF/ON action generate event and display OFF screen/ON screen
 - on pi reboot start mpd service, cd to radyo pi and start the script 
 - Design box ideas with measurement, sockets exposed
 - Build a cardbox housing
-- Connect the potentiometer
-- convert volume into events
-- wireless setup via python - ssid scan, enter password
+- wire up the on/off switch from encoder to gpio pins
+- Make the indicators "light up" with color on tune in - sprite sheet
+- Solder the potentiometer
+- Portability: wireless setup via python - ssid scan, enter password
 - write document for installation with installation for dependencies
   (jessie, setup wifi(ssid/apssword)- or used cabled connection, install mpd/mpc)
   (RPi, feedparser, Queue, python3, pygame) - use pip
   (on pc simulation mode use keys q- f- arrows-)
   (adafruit parts, extra extension, rotary encoder, )
 - on Encoder push button turn off screen backlight - code gpio listener for this
-- wire up the on/off switch from encoder to gpio pins
 - Find(Write) code to show temperature parsed on clock screen
-- on radyo end clean up resources etc
 - Start and end markers on the dial
 - on the dial show station details from mpc parsing
 - Make the sound card work?
-- Do I  need an amp to connect a speaker?
-- Write code to read volume from potentiometer
-- Write code to read on off from potentiometer
+- Do I  need an amp to connect a speaker? maybe buy mini speakers?
 - Experiment with look and feel,  play with the font, glass front needed?
 - Dim the backlight - too bright  *  this seems to be more difficukt than expected
 
@@ -43,3 +41,9 @@ DONE
 - Write code to show clock when off -  news headline parse
 - remmeber the last delta/station location and volume level between the switch on-off
 - change the clock background to a plain img file/darker
+- create long living objects with lifecycles consistently
+- on OFF/ON action generate event and display OFF screen/ON screen
+- Write code to read on off from potentiometer
+- on radyo end clean up resources etc
+- do not recreate clock
+- initial volume when started shd be higher

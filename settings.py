@@ -28,7 +28,7 @@ class Settings:
         self.volume = {
             "min_vol" : 64,
             "max_vol" : 100,
-            "ini_vol" : 73,
+            "ini_vol" : 79,
             "increment" : 3 
         }
 
@@ -74,7 +74,7 @@ class Settings:
             "inactive_color" : (190, 190, 190),
             "active_color" : (30, 30, 30),
             "font" : "monospace",
-            "font_size" : 15, 
+            "font_size" : 25, 
             "gap_x" : self.width // 16,
             "gap_y" : self.height // 20
         }

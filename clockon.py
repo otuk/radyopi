@@ -8,14 +8,15 @@ import volumemanager
 
 
 def pre(control):
-    # check if the ON button is on  TODO
+    # check if the ON button is on  #TODO
     # if it is skip to radyoon
+
     if control.clk == None:
         #create data for display
         control.clk = clock.Clock(control.config)
         control.cg = pygame.sprite.Group()
         control.cg.add (control.clk)
-        #c.debug(" clcokon initialized")
+        #c.debug(" clcok first time  initialized")
     control.gs.set_level_on();        
 
 
@@ -52,10 +53,6 @@ def drw(control, screen):
     
         
 def pst(control):
-    #clean up first
-    control.cg.empty()  # TODO is this clean up really needed?
-    control.clk = None
-    control.cg = None
     if control.gs.exit_requested:
         control.gs.curr_state = control.RADYOEND
         return
