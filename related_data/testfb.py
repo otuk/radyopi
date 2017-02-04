@@ -3,10 +3,10 @@ import pygame
 
 disp_no = os.getenv('DISPLAY')
 if disp_no:
-    print("I'm running under X display = {0}".format(disp_no))
+    c.debug("I'm running under X display = {0}".format(disp_no))
     pygame.display.init()
 else:
-    print(" display is not set")
+    c.debug(" display is not set")
     drivers = ['directfb', 'fbcon', 'svgalib']
     found = False
     for driver in drivers:
@@ -15,7 +15,7 @@ else:
             try:
                 pygame.display.init()
             except pygame.error:
-                print("Driver: {0} failed".format(driver))
+                c.debug("Driver: {0} failed".format(driver))
                 continue
             found = True
             break

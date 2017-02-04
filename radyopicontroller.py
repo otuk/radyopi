@@ -20,6 +20,10 @@ class Controller:
     DRW = 3
     PST = 4
 
+    CLOCKON = 1
+    RADYOON = 2
+    RADYOEND = 3
+
     
     def __init__(self, config):
         # all the settings are here
@@ -27,9 +31,9 @@ class Controller:
         # current state is in gs(gamestate) object
         self.gs = stats.Stats(config)
         # background for the station dial
-        self.backdial = background.Background(config, self.gs)
+        self.backgd = background.Background(config, self.gs)
         self.bdg = pygame.sprite.Group()
-        self.bdg.add(self.backdial)
+        self.bdg.add(self.backgd)
         # wifi checker
         # TODO call the wifi checker during radyo on? perf impact?
         self.wifis = wifistatus.Wifistatus(config, self.gs)
@@ -51,11 +55,11 @@ class Controller:
         self.gs.game_on = True
 
         
-    def is_ON(self):
+    def is_game_on(self):
         return self.gs.game_on
 
     
-    def is_level_ON(self):
+    def is_level_on(self):
         return self.gs.level_on
 
     

@@ -11,12 +11,7 @@ https://gist.github.com/savetheclocktower/9b5f67c20f6c04e65ed88f2e594d43c1#file-
 
 from RPi import GPIO
 
-DEBUG = True
-
-def debug(str):
-  if not DEBUG:
-    return
-  print(str)
+import common as c
 
 BS_ON = 1
 BS_OFF = 0
@@ -50,7 +45,7 @@ class ButtonHandler:
     
   def _buttonCallback(self, channel):
     self.level = GPIO.input(channel)
-    print("button calling back ", self.level)
+    c.debug("button calling back ", self.level)
     self.buttonCallback(self.level)
 
 

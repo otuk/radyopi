@@ -72,7 +72,7 @@ EVENT = threading.Event()
 def debug(str):
   if not DEBUG:
     return
-  print(str)
+  c.debug(str)
 
 class RotaryEncoder:
   """
@@ -272,7 +272,7 @@ if __name__ == "__main__":
   
   def on_press(value):
     v.toggle()
-    print("Toggled mute to: {}".format(v.is_muted))
+    c.debug("Toggled mute to: {}".format(v.is_muted))
     EVENT.set()
   
   # This callback runs in the background thread. All it does is put turn
@@ -296,10 +296,10 @@ if __name__ == "__main__":
       vol = v.up()
     else:
       vol = v.down()
-    print("Set volume to: {}".format(vol))
+    c.debug("Set volume to: {}".format(vol))
     
   def on_exit(a, b):
-    print("Exiting...")
+    c.debug("Exiting...")
     encoder.destroy()
     sys.exit(0)
     

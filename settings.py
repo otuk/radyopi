@@ -5,21 +5,22 @@ import stationlist
 class Settings:
     
     def __init__(self):
-        self.icon = "radio.png"
+        self.icon = "./images/radio.png"
+        self.image =  "./images/yellowbg3.png"
         self.title = "Radyo Pi"
         self.width = 320
         self.height = 240
         self.FPS = 30
 
         self.wifistatus = {
-            "image_wifion" : "wifi_on.png",
-            "image_wifioff" : "wifi_off.png",
+            "image_wifion" : "./images/wifi_on.png",
+            "image_wifioff" : "./images/wifi_off.png",
             "width" : self.width//4,
             "height" : self.width//4
         }
 
         self.dial = {
-            "image" : "reddial.png",
+            "image" : "./images/reddial.png",
             "width" : self.width // 80,
             "height" : self.height
         }
@@ -45,7 +46,7 @@ class Settings:
         }
 
         self.glasspanel = {
-            "image" : "glasspanel.png",
+            "image" : "./images/glasspanel.png",
             "width" : self.width + self.width // 10,
             "height" : self.height + self.height // 40,
             "x_shift" : -8,
@@ -55,15 +56,16 @@ class Settings:
         self.clock = {
             "width" : int(self.width //1.5) ,
             "height" : int(self.height // 2),
-            "image" : "clockback.png",
+            "image" : "./images/clockback.png",
             "color" : (190, 190, 190),
-            #"font" : "Helvetica",
+            "background_color" : (2,4, 3),
             "font" : "monospace",
             "font_size_L" : 75,
             "font_size_M" : 30,
             "font_size_S" : 13,
             "font_size_XS" : 15,             
-            "gap_y" : self.height // 20
+            "gap_y" : self.height // 20,
+            "news_source" : "http://feeds.bbci.co.uk/news/rss.xml?edition=us"
         }
         
         self.sta_display = {
@@ -84,21 +86,7 @@ class Settings:
         }
 
         self.stations = stationlist.stations
-        
-        self.levels =[
-            {
-                "name":"radyostart",
-                "image":"yellowbg3.png",                
-            },
-            {
-                "name":"radyoon",
-                "image":"yellowbg3.png",                
-            },
-            {
-                "name":"radyoend",
-                "image" : "clockback.png"
-            }
-        ]
+   
 
 
 

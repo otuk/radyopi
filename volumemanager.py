@@ -4,11 +4,9 @@
 import subprocess
 import pygame
 
-import importlib
+import common as c
 
-mRPi = importlib.find_loader("RPi")
-RUNNING_ON_PI = mRPi is not None
-if RUNNING_ON_PI:
+if c.RUNNING_ON_PI:
     import r_buttonhandler as rbh
 
 
@@ -28,10 +26,10 @@ class VolumeManager(pygame.sprite.Sprite):
         self.premutevol = self._vol
         self._clear = False
         self.set_volume(self._vol)
-        self.with_button_handler = RUNNING_ON_PI
+        self.with_button_handler = c.RUNNING_ON_PI
         if  self.with_button_handler:
             gpio = config.r_volumebutton["gpio"]
-            print("vol bu" , gpio)
+            c.debug("vol bu" , gpio)
             #increment_amount = config.r_volumebutton["increment"] # TODO
             self.onoffbutton = rbh.ButtonHandler(buttonPin=gpio,
                                             buttonCallback=self.on_onoff)
@@ -81,6 +79,7 @@ class VolumeManager(pygame.sprite.Sprite):
         subprocess.call("mpc rm  "
                         + self.config.sta_manager["playlist_name"], shell=True)           
         
+
     def stop_mpc(self): 
         subprocess.call("mpc stop ", shell=True)
         subprocess.call("mpc clear ", shell=True)
@@ -97,7 +96,7 @@ class VolumeManager(pygame.sprite.Sprite):
 
 
     def on_onoff(self, onoffv):
-        #print("on off generating event")
+        #c.debug("on off generating event")
         if onoffv == 0:
             onoffv = 1
         else:

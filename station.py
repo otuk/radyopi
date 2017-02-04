@@ -13,7 +13,7 @@ class Station(pygame.sprite.Sprite):
     
     def __init__(self, config, stano, col, row, starts_at, ind_starts_at, ig):
         super().__init__()
-        #print ("station ", stano, "col:",col, "row:",row, "starts_at:",starts_at )
+        #c.debug("station ", stano, "col:",col, "row:",row, "starts_at:",starts_at )
         self.config = config
         self.active = False
         self.no = stano
@@ -36,7 +36,7 @@ class Station(pygame.sprite.Sprite):
         self.rect.x = self._x + self.delta
         self._y = self.config.sta_display["gap_y"] + self.row * (self.config.sta_display["height"] + self.config.sta_display["gap_y"])
         self.rect.y = self._y + self.delta
-        #print(self.rect)
+        #c.debug(self.rect)
         self.ind = indicator.Indicator(config, self, self.rect.centerx -20, self.rect.centery+ 10)
         ig.add(self.ind)
         

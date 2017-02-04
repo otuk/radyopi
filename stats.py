@@ -2,6 +2,7 @@
 class Stats:
 
     def __init__(self, config):
+        self.exit_requested = False
         self.game_on = False
         self.level_on = False
         self.curr_state = 0
@@ -13,6 +14,9 @@ class Stats:
 
     def set_level_off(self):
         self.level_on = False
+
+    def set_exit_requested(self):
+        self.exit_requested = True        
 
     def set_game_on(self):
         self.game_on = True

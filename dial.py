@@ -1,11 +1,10 @@
 # -*- coding: utf-8 -*-
 
 import pygame
-import importlib
 
-mRPi = importlib.find_loader("RPi")
-RUNNING_ON_PI = mRPi is not None
-if RUNNING_ON_PI:
+import common as c
+
+if c.RUNNING_ON_PI:
     import r_encoderhandler as reh
 
 
@@ -24,7 +23,7 @@ class Dial(pygame.sprite.Sprite):
         self._y = 0
         self.rect.x = self._x + self.delta
         self.rect.y = self._y
-        self.with_encoder = RUNNING_ON_PI
+        self.with_encoder = c.RUNNING_ON_PI
         if  self.with_encoder:
             gpioA = config.rencoder["gpioA"]
             gpioB = config.rencoder["gpioB"]
@@ -36,7 +35,7 @@ class Dial(pygame.sprite.Sprite):
                                              callback=self.on_turn,
                                              buttonPin=gpioButton,
                                              buttonCallback=self.on_press)
-        print("dial created with encoder", gpioA, gpioB, gpioButton)
+            c.debug("dial created with encoder", gpioA, gpioB, gpioButton)
 
         
 
@@ -66,7 +65,7 @@ class Dial(pygame.sprite.Sprite):
     # This callback runs in the background thread. All it does is put turn
     # events into pygame event queue 
     def on_turn(self, delta):
-        #print("on turn + delta ", delta)
+        #c.debug("on turn + delta ", delta)
         pygame.event.post(pygame.event.Event(pygame.USEREVENT,
                                              name="_dial", side=delta))
 

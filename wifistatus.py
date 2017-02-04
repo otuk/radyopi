@@ -45,8 +45,7 @@ class Wifistatus(pygame.sprite.Sprite):
         else:
             self.checkinterval -= 1    
             return self.wifion
-
-        print("checking wifi "+ str(self.checkinterval))
+        c.debug("checking wifi "+ str(self.checkinterval))
 
         
         try:
@@ -59,8 +58,8 @@ class Wifistatus(pygame.sprite.Sprite):
             self.checkinterval = self.config.FPS * SUCCESS_CHECK_INTERVAL - 1
             return True
         except Exception as ex:
-            print("Problem connecting to internet")
-            print(str(ex))
+            c.debug("Problem connecting to internet")
+            c.debug(str(ex))
             self.wifion = False
             self.set_image(self.offimg)
             self.checkinterval = self.config.FPS * FAILED_CHECK_INTERVAL - 1

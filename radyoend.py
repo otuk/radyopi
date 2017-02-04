@@ -1,25 +1,19 @@
 
 import pygame
 
-import clock
+import common as c
 
 
 
 def pre(control):
+    " this level is just to clear resources"
     control.gs.set_level_on();
 
         
         
 def evh(control):
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            control.gs.set_game_off()
-            control.gs.set_level_off()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_q:
-                control.gs.set_level_off()
-                control.gs.set_game_off()
-
+    control.gs.set_game_off()
+    control.gs.set_level_off();            
 
                     
 def upd(control):
@@ -40,8 +34,9 @@ def pst(control):
     control.volman.mute()
     control.volman.stop_mpc()    # radyo off mode
     control.volman.remove_playlist()
-    print("radyo end executed")
+    c.warn("radyo end executed")
     control.volman.destroy()
+    # release GPIO
     control.volman.clear_gpio()
 
 

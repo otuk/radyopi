@@ -2,7 +2,8 @@
 
 import pygame
 
-#import volumemanager
+import common as c
+
 import stationmanager
 import dial
 
@@ -15,20 +16,17 @@ def pre(control):
     control.stag = pygame.sprite.Group()
     for sta in control.staman.stas:
         control.stag.add(sta)
-    control.dial = dial.Dial(control.config, control.gs)
-    control.dg = pygame.sprite.Group()
-    control.dg.add(control.dial)
+
     control.volman.unmute()
     control.gs.set_level_on()
-    print("radyo on pre executed")
+    c.debug("radyo on pre executed")
     
-        
 
     
 def evh(control):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            control.gs.set_game_off()
+            control.gs.set_exit_requested()
             control.gs.set_level_off()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
@@ -42,10 +40,11 @@ def evh(control):
             elif event.key == pygame.K_UP:
                 control.volman.increase_volume(control.volman.increment)
             if event.key == pygame.K_q:
+                control.gs.set_exit_requested()
                 control.gs.set_level_off()
-                control.gs.set_game_off()
             if event.key == pygame.K_f:
-                control.gs.set_level_off()
+                #simulate button event
+                control.volman.on_onoff(0)
         elif event.type == pygame.USEREVENT:
             if event.name == "_dial":
                 d = event.side
@@ -53,10 +52,9 @@ def evh(control):
                 control.dial.add_delta(2*d)
             elif event.name == "_onoff":
                 status = event.onoffv
-                print("ron compare status", status, control.gs.curr_state )
+                c.debug("ron compare status", status, control.gs.curr_state)
                 if status != control.gs.curr_state :
                     control.gs.set_level_off()
-                    return
         
             
                 
@@ -77,17 +75,15 @@ def drw(control, screen):
 
 
 
-def pst(control):
-    # do some clean up
-    # TODO  what else?
+def pst(control): 
+    # turn off volume 
     control.gs.set_last_vol(control.volman.vol)
     control.gs.set_last_delta(control.staman.delta)
     #turn off mpc
     control.volman.mute()    
     control.volman.update()
     control.volman.stop_mpc()
-    control.dial.destroy()
-    control.dg.empty()
-    control.dial = None
-    control.dg = None
-    control.gs.curr_state = 1 # back to clock
+    if control.gs.exit_requested:
+        control.gs.curr_state = control.RADYOEND
+        return
+    control.gs.curr_state = control.CLOCKON # back to clock

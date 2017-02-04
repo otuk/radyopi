@@ -1,6 +1,10 @@
 
 import pygame
 
+import common as c
+import volumemanager
+import dial
+
 
 def pre(control):
     control.gs.set_level_on()
@@ -9,15 +13,15 @@ def pre(control):
 def evh(control):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            control.gs.set_game_off()
+            control.gs.set_exit_requested()
             control.gs.set_level_off()
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
                 control.gs.set_level_off()
             if event.key == pygame.K_q:
+                control.gs.set_exit_requested()
                 control.gs.set_level_off()
-                control.gs.set_game_off()
-
+                
 
                 
 def upd(control):
@@ -30,7 +34,7 @@ def upd(control):
     control.gs.set_level_off()  # TODO TEST only for nointernet connection/TEST
 
     
-def drw(control, screen):
+def drw(control, screen):  #TODO show what wifi is being tried on screen
     control.bdg.draw(screen)
     control.wfg.draw(screen)
     control.gg.draw(screen)
@@ -38,5 +42,17 @@ def drw(control, screen):
 
     
 def pst(control):
-    control.gs.curr_state = 1
-    print ( "-- radyostart POST executed gs state is ", control.gs.curr_state )
+    if control.gs.exit_requested:
+          control.gs.curr_state = control.RADYOEND
+          return      
+    #create the long living objects
+    # start the volume manager
+    control.volman = volumemanager.VolumeManager(control.config, control.gs)
+    control.vg = pygame.sprite.Group()
+    control.vg.add(control.volman)
+    #add the dial manager
+    control.dial = dial.Dial(control.config, control.gs)
+    control.dg = pygame.sprite.Group()
+    control.dg.add(control.dial)
+    control.gs.curr_state = control.CLOCKON
+    c.debug( "-- radyostart POST executed gs state is "+str(control.gs.curr_state) )

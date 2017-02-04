@@ -2,7 +2,9 @@
 RADYO PI TODO LIST:
 ============================
 
-
+- create long living objects with lifecycles consistently
+- standardize names and process
+- on OFF/ON action generate event and display OFF screen/ON screen
 - on pi reboot start mpd service, cd to radyo pi and start the script 
 - Design box ideas with measurement, sockets exposed
 - Build a cardbox housing
@@ -11,13 +13,12 @@ RADYO PI TODO LIST:
 - wireless setup via python - ssid scan, enter password
 - write document for installation with installation for dependencies
   (jessie, setup wifi(ssid/apssword)- or used cabled connection, install mpd/mpc)
-  (RPi, feedparser, Queue, python3, pygame)
-  (keys q- f- arrows-)
+  (RPi, feedparser, Queue, python3, pygame) - use pip
+  (on pc simulation mode use keys q- f- arrows-)
   (adafruit parts, extra extension, rotary encoder, )
-- on OFF/ON action generate event and display OFF screen/ON screen
 - on Encoder push button turn off screen backlight - code gpio listener for this
 - wire up the on/off switch from encoder to gpio pins
-- Write code to show temperature parsed on clock screen
+- Find(Write) code to show temperature parsed on clock screen
 - on radyo end clean up resources etc
 - Start and end markers on the dial
 - on the dial show station details from mpc parsing
