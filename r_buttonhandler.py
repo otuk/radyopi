@@ -51,5 +51,5 @@ class ButtonHandler:
 
 
   def destroy(self):
-    debug("destroying button handler")
+    c.debug("destroying button handler")
     GPIO.remove_event_detect(self.gpioButton)

@@ -18,7 +18,7 @@ class VolumeManager(pygame.sprite.Sprite):
         super().__init__()
         self.config = config
         self.gamestats = gamestats
-        self._vol = self.gamestats.get_last_vol()
+        self.reset_volume()
         self.min = config.volume["min_vol"]
         self.max = config.volume["max_vol"]
         self.increment = config.volume["increment"]
@@ -43,7 +43,10 @@ class VolumeManager(pygame.sprite.Sprite):
         else :
             self._vol = v
 
-
+            
+    def reset_volume(self):
+        self._vol = self.gamestats.get_last_vol()        
+            
             
     def increase_volume(self, v):
         self._vol += v

@@ -16,8 +16,7 @@ def pre(control):
     control.stag = pygame.sprite.Group()
     for sta in control.staman.stas:
         control.stag.add(sta)
-
-    control.volman.unmute()
+    control.volman.reset_volume()
     control.gs.set_level_on()
     c.debug("radyo on pre executed")
     

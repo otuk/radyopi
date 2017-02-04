@@ -47,7 +47,7 @@ class RotaryEncoder:
     self.increment = increment
     self.neg_increment = -1*self.increment
     self.callback = callback
-    debug("callback set"+str(self.callback))
+    c.debug("callback set"+str(self.callback))
     
     self.gpioButton     = buttonPin
     self.buttonCallback = buttonCallback
@@ -98,7 +98,7 @@ class RotaryEncoder:
 
 
   def destroy(self):
-    debug("destroying rencoder handler")
+    c.debug("destroying rencoder handler")
     GPIO.remove_event_detect(self.gpioA)
     GPIO.remove_event_detect(self.gpioB)
 
