@@ -27,18 +27,24 @@ class StationManager():
             lastx[row] = nsta.ends_at()
             lasti = nsta.iends_at()
             s += 1
-        self.playlistname = config.sta_manager["playlist_name"]    
+        self.playlistname = config.sta_manager["playlist_name"]
+        print("will write playlist")
         self.writeplaylist()
         self.set_delta(self.delta)
 
         
     def writeplaylist(self):
+        print("will clear")
         subprocess.call("mpc -w clear ", shell=True)
+        print("cleared")
         subprocess.call("mpc -w rm " + self.playlistname, shell=True)
+        subprocess.call("mpc -w save " + self.playlistname, shell=True)
         for sta in self.stas:
             url = sta.url
+            print("adding")
             subprocess.call("mpc add " + url, shell=True)
         subprocess.call("mpc -w save " + self.playlistname, shell=True)
+        print("loading")
         subprocess.call("mpc load " + self.playlistname, shell=True)
                 
         

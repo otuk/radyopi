@@ -16,7 +16,7 @@ def pre(control):
         control.clk = clock.Clock(control.config)
         control.cg = pygame.sprite.Group()
         control.cg.add (control.clk)
-        #c.debug(" clcok first time  initialized")
+        c.debug(" clcok first time  initialized")
     control.gs.set_level_on();        
 
 
@@ -58,5 +58,5 @@ def pst(control):
         return
     else:       
         control.gs.curr_state = control.RADYOON
-
+        c.debug(" clock post executed moving to radyo on ")
 
